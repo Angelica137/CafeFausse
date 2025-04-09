@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import Home from "../Home";
 
 describe("Home Page", () => {
-  it("displays the cafe name", () => {
+  it("renders the Header component with the cafe name", () => {
     render(<Home />);
-    expect(screen.getByText(/Cafe Fausse/i)).toBeInTheDocument();
+    expect(screen.getByText("Cafe Fausse")).toBeInTheDocument();
   });
 });

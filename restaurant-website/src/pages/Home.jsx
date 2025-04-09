@@ -1,11 +1,18 @@
 import React from "react";
+import Header from "../components/Header/Header";
+import "./Home.css";
 
 const Home = () => {
-	return (
-		<div>
-			<h1>Cafe Fausse</h1>
-		</div>
-	);
+  const restaurantName = "Cafe Fausse";
+
+  return (
+    <div className="home-container">
+      <Header restaurantName={restaurantName} />
+      <main className="home-content">
+        {/* Main content of the home page will go here */}
+      </main>
+    </div>
+  );
 };
 
 export default Home;

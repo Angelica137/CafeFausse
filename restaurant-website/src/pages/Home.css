@@ -1,0 +1,13 @@
+/* Home Component Styles */
+@import '../../styles/variables.css';
+
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-content {
+  flex: 1;
+  padding: var(--spacing-lg);
+}

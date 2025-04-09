@@ -1,0 +1,47 @@
+/* Design System - Core Variables */
+
+:root {
+  /* Color Palette */
+  --color-primary: #242021;
+  --color-secondary: #4A4A4A;
+  --color-accent: #D4AF37;
+  --color-background: #FFFFFF;
+  --color-background-alt: #F8F8F8;
+  --color-border: #E0E0E0;
+  
+  /* Typography */
+  --font-primary: 'DidotRoman', Garamond, 'Times New Roman', serif;
+  --font-secondary: 'Helvetica Neue', Arial, sans-serif;
+  
+  /* Font Sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 32px;
+  --font-size-hero: 48px;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
