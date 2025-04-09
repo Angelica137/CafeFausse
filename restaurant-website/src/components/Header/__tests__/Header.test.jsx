@@ -33,13 +33,30 @@ describe("Header Component", () => {
     const restaurantName = screen.getByRole("heading", { level: 1 });
     expect(logoContainer.contains(restaurantName)).toBe(true);
     
-    // Check if the three sections exist
-    // const leftNav = document.querySelector(".left-nav");
-    // expect(leftNav).toBeInTheDocument();
-    
+		// Check if right nav exist
     // const rightNav = document.querySelector(".right-nav");
     // expect(rightNav).toBeInTheDocument();
-    
-    
   });
+
+	it("renders left navigation items correctly", () => {
+		render(<Header restaurantName="Test Restaurant" />);
+
+		// Check if the navigation lement exists in teh left nav
+		const leftNav = document.querySelector(".left-nav");
+		expect(leftNav).toBeInTheDocument();
+		const navElement = leftNav.querySelector("nav");
+		expect(navElement).toBeInTheDocument();
+
+		// Check for two sepcific navigation links
+		const reservationLink = screen.getByText("Make a Reservation");
+		expect(reservationLink).toBeInTheDocument();
+    expect(reservationLink.tagName.toLowerCase()).toBe("a");
+
+		const menuLink = screen.getByText("Menu");
+		expect(menuLink).toBeInTheDocument();
+		expect(menuLink.tagName.toLowerCase()).toBe("a");
+		// Check if the links have the correct href attributes
+		expect(reservationLink).toHaveAttribute("href", "/reservations");
+		expect(menuLink).toHaveAttribute("href", "/menu");
+	});
 });
