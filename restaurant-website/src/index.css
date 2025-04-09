@@ -1,8 +1,8 @@
 /* Main CSS File - imports all stylesheets */
 
 /* Core styles */
-@import './reset.css';
-@import './variables.css';
-@import './typography.css';
+@import './styles/reset.css';
+@import './styles/typography.css';
+@import './styles/variables.css';
 
 /* Add additional global style files as needed */

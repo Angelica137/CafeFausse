@@ -1,5 +1,5 @@
 /* Home Component Styles */
-@import '../../styles/variables.css';
+@import '../styles/variables.css';
 
 .home-container {
   min-height: 100vh;
