@@ -8,8 +8,8 @@ const Header = ({ restaurantName }) => {
 				<div className="left-nav">
 					<nav>
 						<ul>
-							<li><a href="/reservations">Make a Reservation</a></li>
-							<li><a href="/menu">Menu</a></li>
+							<li><a href="/reservations" className="nav-link">Make a Reservation</a></li>
+							<li><a href="/menu" className="nav-link">Menu</a></li>
 						</ul>
 					</nav>
 				</div>
