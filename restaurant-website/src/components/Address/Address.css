@@ -1,0 +1,7 @@
+/* components/Address/Address.css */
+.restaurant-address {
+  font-family: 'Didot', serif;
+  font-size: 16px;
+  text-align: center;
+  margin: 20px 0;
+}
