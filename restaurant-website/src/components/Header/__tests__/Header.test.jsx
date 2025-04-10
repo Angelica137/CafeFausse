@@ -32,16 +32,12 @@ describe("Header Component", () => {
 		// Check if restaurant name is in the logo container
     const restaurantName = screen.getByRole("heading", { level: 1 });
     expect(logoContainer.contains(restaurantName)).toBe(true);
-    
-		// Check if right nav exist
-    // const rightNav = document.querySelector(".right-nav");
-    // expect(rightNav).toBeInTheDocument();
   });
 
 	it("renders left navigation items correctly", () => {
 		render(<Header restaurantName="Test Restaurant" />);
 
-		// Check if the navigation lement exists in teh left nav
+		// Check if the navigation element exists in the left nav
 		const leftNav = document.querySelector(".left-nav");
 		expect(leftNav).toBeInTheDocument();
 		const navElement = leftNav.querySelector("nav");
@@ -58,5 +54,28 @@ describe("Header Component", () => {
 		// Check if the links have the correct href attributes
 		expect(reservationLink).toHaveAttribute("href", "/reservations");
 		expect(menuLink).toHaveAttribute("href", "/menu");
+	});
+
+	it("renders right navigation items correctly", () => {
+		render(<Header restaurantName="Test Restaurant" />);
+
+		// Check if the right nav exists
+		const rightNav = document.querySelector(".right-nav");
+		expect(rightNav).toBeInTheDocument();
+		const navElement = rightNav.querySelector("nav");
+		expect(navElement).toBeInTheDocument();
+
+		// Check for two specific navigation links
+		const aboutUsLink = screen.getByText("About Us");
+		expect(aboutUsLink).toBeInTheDocument();
+		expect(aboutUsLink.tagName.toLowerCase()).toBe("a");
+		
+		const galleryLink = screen.getByText("Gallery");
+		expect(galleryLink).toBeInTheDocument();
+		expect(galleryLink.tagName.toLowerCase()).toBe("a");
+
+		// Check if the links have the correct href attributes
+		expect(aboutUsLink).toHaveAttribute("href", "/about");
+		expect(galleryLink).toHaveAttribute("href", "/gallery");
 	});
 });
