@@ -20,7 +20,8 @@
 	flex: 1;
 }
 
-.left-nav nav ul {
+.left-nav nav ul,
+.right-nav nav ul {
 	display: flex;
 	list-style: none;
 	padding: 0;
@@ -28,7 +29,8 @@
 	gap: var(--spacing-md);
 }
 
-.left-nav nav li {
+.left-nav nav li,
+.right-nav nav li {
 	margin: 0;
 }
 
@@ -56,4 +58,10 @@
   color: var(--color-primary);
   margin: 0;
 	font-weight: 400;
+}
+
+.right-nav {
+	flex: 1;
+	display: flex;
+	justify-content: flex-end;
 }
