@@ -16,6 +16,14 @@ const Header = ({ restaurantName }) => {
 				<div className="logo-container">
 					<h1 className="restaurant-name">{restaurantName}</h1>
 				</div>
+				<div className="right-nav">
+					<nav>
+						<ul>
+							<li><a href="/about" className="nav-link">About Us</a></li>
+							<li><a href="/gallery" className="nav-link">Gallery</a></li>
+						</ul>
+					</nav>
+				</div>
 			</div>
     </header>
   );
