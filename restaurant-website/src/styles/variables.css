@@ -2,7 +2,7 @@
 
 :root {
   /* Color Palette */
-  --color-primary: #242021;
+  --color-primary: #0a1115;
   --color-secondary: #4A4A4A;
   --color-accent: #D4AF37;
   --color-background: #FFFFFF;
@@ -17,7 +17,7 @@
   --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-md: 16px;
-  --font-size-lg: 18px;
+  --font-size-lg: 20px;
   --font-size-xl: 24px;
   --font-size-xxl: 32px;
   --font-size-hero: 48px;

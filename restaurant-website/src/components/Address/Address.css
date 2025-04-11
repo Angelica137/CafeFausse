@@ -1,7 +1,82 @@
 /* components/Address/Address.css */
-.restaurant-address {
-  font-family: 'Didot', serif;
-  font-size: 16px;
+.address-container {
+  background-color: var(--color-primary);
+  padding: var(--spacing-xl);
   text-align: center;
-  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  color: #fff; /* Consistent text color for all elements */
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
 }
+
+/* Inherit all text styles from container for consistency */
+.address-container * {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+.address-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.address-line {
+  margin: 0;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.phone-container, .email-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.phone-icon, .email-icon {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+}
+
+.hours {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.hours-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.hours-title, .hours-time {
+  margin: 0;
+}
+
+/* If you want to use actual icons rather than the unicode characters */
+/* Uncomment this section and update the JSX accordingly */
+/*
+.phone-icon svg, .email-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+*/
