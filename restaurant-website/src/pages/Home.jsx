@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/Header/Header";
 import Hero from "../components/Hero/Hero";
 import Address from "../components/Address/Address";
+import WelcomeSection from "../components/Welcome/Welcome";
 import restaurantHeroImage from "../assets/images/hero-image.webp";
 import "./Home.css";
 
@@ -14,6 +15,7 @@ const Home = () => {
     <div className="home-container">
       <Header restaurantName={restaurantName} />
 			<Hero imageUrl={restaurantHeroImage} altText="Cafe Fausse Hero Image" />
+			<WelcomeSection />
 			<Address address={address} phone={phone} email={email} />
       <main className="home-content">
         {/* Main content of the home page will go here */}
