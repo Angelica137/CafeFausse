@@ -1,0 +1,177 @@
+/* About Page Styles */
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: var(--menu-color-text);
+  font-family: var(--font-primary);
+}
+
+/* Header Section */
+.about-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.about-header h1 {
+  font-size: 42px;
+  font-weight: var(--font-weight-normal);
+  color: var(--menu-color-heading);
+  margin: 0;
+  letter-spacing: 2px;
+  display: inline-block;
+  position: relative;
+}
+
+.about-header h1::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  background-color: var(--menu-color-border);
+  margin: 15px auto 0;
+}
+
+/* Content Section */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
+
+.about-image-container {
+  margin-bottom: 30px;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 600px;
+}
+
+.about-text {
+  line-height: 1.8;
+}
+
+.about-text p {
+  margin-bottom: 24px;
+  font-size: 18px;
+  color: var(--menu-color-text);
+}
+
+.about-text strong {
+  color: var(--menu-color-heading);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Quote Styling */
+.quote-container {
+  margin: 40px 0;
+  position: relative;
+  padding: 20px 40px;
+  background-color: rgba(212, 203, 190, 0.1);
+  border-left: 3px solid var(--menu-color-border);
+}
+
+blockquote {
+  font-size: 22px;
+  font-style: italic;
+  color: var(--menu-color-heading);
+  margin: 0;
+  line-height: 1.6;
+}
+
+cite {
+  display: block;
+  margin-top: 10px;
+  text-align: right;
+  font-style: normal;
+  font-size: 16px;
+  color: var(--menu-color-subheading);
+}
+
+/* Awards Section */
+.awards-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid var(--menu-color-border);
+}
+
+.awards-section h2 {
+  text-align: center;
+  font-size: 28px;
+  color: var(--menu-color-heading);
+  margin-bottom: 40px;
+  font-weight: var(--font-weight-medium);
+}
+
+.awards-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.award {
+  text-align: center;
+  padding: 20px;
+}
+
+.award-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background-color: var(--menu-color-border);
+  border-radius: 50%;
+}
+
+.award h3 {
+  font-size: 20px;
+  color: var(--menu-color-heading);
+  margin: 0 0 10px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.award p {
+  font-size: 16px;
+  color: var(--menu-color-description);
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .about-content {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+  }
+  
+  .about-image-container {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  
+  .about-text {
+    flex: 1;
+  }
+  
+  .awards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .about-image {
+    height: 300px;
+  }
+  
+  .about-text p {
+    font-size: 16px;
+  }
+  
+  blockquote {
+    font-size: 18px;
+  }
+}
