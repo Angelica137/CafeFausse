@@ -9,8 +9,16 @@
   --color-background-alt: #F8F8F8;
   --color-border: #E0E0E0;
   
+  /* Menu-specific Colors */
+  --menu-color-text: #333;
+  --menu-color-background: #f9f7f3;
+  --menu-color-heading: #2c2418;
+  --menu-color-subheading: #8a7d63;
+  --menu-color-description: #666;
+  --menu-color-border: #d4c9b6;
+  
   /* Typography */
-  --font-primary: 'Didot', Garamond, 'Times New Roman', serif;
+  --font-primary: 'Cormorant Garamond', Georgia, serif;
   --font-secondary: 'Helvetica Neue', Arial, sans-serif;
   
   /* Font Sizes */
@@ -22,6 +30,20 @@
   --font-size-xxl: 32px;
   --font-size-hero: 48px;
   
+  /* Menu-specific Font Sizes */
+  --menu-font-size-restaurant-name: 46px;
+  --menu-font-size-menu-title: 24px;
+  --menu-font-size-section-title: 28px;
+  --menu-font-size-item-name: 20px;
+  --menu-font-size-item-description: 16px;
+  --menu-font-size-cheese-varieties: 15px;
+  --menu-font-size-footer: 14px;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  
   /* Spacing */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -30,10 +52,22 @@
   --spacing-xl: 32px;
   --spacing-xxl: 48px;
   
+  /* Menu-specific Spacing */
+  --menu-spacing-container: 40px 20px;
+  --menu-spacing-section-margin: 40px;
+  --menu-spacing-header-margin: 40px;
+  --menu-spacing-title-margin: 20px;
+  --menu-spacing-grid-gap: 25px;
+  --menu-spacing-item-padding-bottom: 15px;
+  
   /* Border Radius */
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 16px;
+  
+  /* Decorative Elements */
+  --menu-divider-width: 80px;
+  --menu-divider-height: 2px;
   
   /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -44,4 +78,10 @@
   --transition-fast: 0.2s ease;
   --transition-medium: 0.3s ease;
   --transition-slow: 0.5s ease;
+  
+  /* Layout - Grid */
+  --menu-grid-columns-mobile: 1fr;
+  --menu-grid-columns-desktop: 1fr 1fr;
+  --menu-grid-desktop-breakpoint: 768px;
+  --menu-container-max-width: 1000px;
 }

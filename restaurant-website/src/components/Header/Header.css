@@ -52,6 +52,17 @@
 	justify-content: center;
 }
 
+.logo-link {
+  text-decoration: none; /* Removes the underline */
+  display: block; /* Ensures the link takes up the full container space */
+  color: inherit; /* Inherits the text color from parent */
+}
+
+/* You can also add a hover effect if desired */
+.logo-link:hover {
+  opacity: 0.9; /* Slight opacity change on hover */
+}
+
 .restaurant-name {
   font-size: var(--font-size-hero); /* Using pixels as requested */
   font-family: var(--font-primary);
