@@ -1,7 +1,7 @@
 # app/routes/reservation.py
 
 from flask import Blueprint, request, jsonify
-from app.models import Customer, Reservation
+from app.models import Customer, Reservation, Table
 from app import db
 from datetime import datetime
 
@@ -47,12 +47,17 @@ def available_time_slots():
 def create_reservation():
     data = request.get_json()
 
-    name = data.get('name')
-    email = data.get('email')
-    phone = data.get('phone', None)
-    date = data.get('date')
-    time_slot = data.get('time_slot')
-    number_of_guests = data.get('number_of_guests')
+    name = data.get('customer', {}).get('name')
+    email = data.get('customer', {}).get('email')
+    phone = data.get('customer', {}).get('phone', None)
+
+    date = data.get('reservation', {}).get('date')
+    time_slot = data.get('reservation', {}).get('time_slot')
+    number_of_guests = data.get('reservation', {}).get('number_of_guests')
+
+    print(f"Received time_slot: {time_slot}")
+    if time_slot not in valid_time_slots:
+        return jsonify({"error": "Selected time slot is outside of the allowed time range."}), 400
 
     # Validate time slot
     if time_slot not in valid_time_slots:
@@ -71,8 +76,21 @@ def create_reservation():
         db.session.add(customer)
         db.session.commit()
 
+    # Check for available table based on number of guests
+    table_number = None
+    if number_of_guests <= 2:  # Prefer two-top tables
+        table_number = assign_table('two_top')
+    elif 3 <= number_of_guests <= 4:  # Prefer four-top tables
+        table_number = assign_table('four_top')
+    elif number_of_guests >= 5:  # Assign larger tables or chef's tables
+        table_number = assign_table('larger_or_chef')
+
+    # Check if a valid table is assigned
+    if not table_number:
+        return jsonify({"error": "No available table for the requested number of guests."}), 400
+
     # Check if time slot is available
-    existing_reservation = Reservation.query.filter_by(date=requested_date, time_slot=time_slot).first()
+    existing_reservation = Reservation.query.filter_by(date=requested_date, time_slot=time_slot, table_number=table_number).first()
     if existing_reservation:
         return jsonify({"error": "The selected time slot is already reserved."}), 400
 
@@ -81,6 +99,7 @@ def create_reservation():
         customer_id=customer.id,
         date=requested_date,
         time_slot=time_slot,
+        table_number=table_number,
         number_of_guests=number_of_guests
     )
 
@@ -88,3 +107,19 @@ def create_reservation():
     db.session.commit()
 
     return jsonify({"message": "Reservation created successfully", "reservation_id": reservation.id}), 201
+
+
+def assign_table(table_type):
+    """Assign a table based on type."""
+    if table_type == 'two_top':
+        available_table = Table.query.filter_by(type='two_top', available=True).first()
+    elif table_type == 'four_top':
+        available_table = Table.query.filter_by(type='four_top', available=True).first()
+    elif table_type == 'larger_or_chef':
+        available_table = Table.query.filter_by(type='larger_or_chef', available=True).first()
+
+    if available_table:
+        available_table.available = False  # Mark table as taken
+        db.session.commit()
+        return available_table.id
+    return None
