@@ -55,10 +55,6 @@ def create_reservation():
     time_slot = data.get('reservation', {}).get('time_slot')
     number_of_guests = data.get('reservation', {}).get('number_of_guests')
 
-    print(f"Received time_slot: {time_slot}")
-    if time_slot not in valid_time_slots:
-        return jsonify({"error": "Selected time slot is outside of the allowed time range."}), 400
-
     # Validate time slot
     if time_slot not in valid_time_slots:
         return jsonify({"error": "Selected time slot is outside of the allowed time range."}), 400
@@ -76,30 +72,19 @@ def create_reservation():
         db.session.add(customer)
         db.session.commit()
 
-    # Check for available table based on number of guests
-    table_number = None
-    if number_of_guests <= 2:  # Prefer two-top tables
-        table_number = assign_table('two_top')
-    elif 3 <= number_of_guests <= 4:  # Prefer four-top tables
-        table_number = assign_table('four_top')
-    elif number_of_guests >= 5:  # Assign larger tables or chef's tables
-        table_number = assign_table('larger_or_chef')
-
+    # Find an appropriate table based on number of guests
+    table_id = find_available_table(number_of_guests, requested_date, time_slot)
+    
     # Check if a valid table is assigned
-    if not table_number:
+    if not table_id:
         return jsonify({"error": "No available table for the requested number of guests."}), 400
-
-    # Check if time slot is available
-    existing_reservation = Reservation.query.filter_by(date=requested_date, time_slot=time_slot, table_number=table_number).first()
-    if existing_reservation:
-        return jsonify({"error": "The selected time slot is already reserved."}), 400
 
     # Create the reservation
     reservation = Reservation(
         customer_id=customer.id,
         date=requested_date,
         time_slot=time_slot,
-        table_number=table_number,
+        table_id=table_id,
         number_of_guests=number_of_guests
     )
 
@@ -109,17 +94,23 @@ def create_reservation():
     return jsonify({"message": "Reservation created successfully", "reservation_id": reservation.id}), 201
 
 
-def assign_table(table_type):
-    """Assign a table based on type."""
-    if table_type == 'two_top':
-        available_table = Table.query.filter_by(type='two_top', available=True).first()
-    elif table_type == 'four_top':
-        available_table = Table.query.filter_by(type='four_top', available=True).first()
-    elif table_type == 'larger_or_chef':
-        available_table = Table.query.filter_by(type='larger_or_chef', available=True).first()
-
-    if available_table:
-        available_table.available = False  # Mark table as taken
-        db.session.commit()
-        return available_table.id
+def find_available_table(number_of_guests, date, time_slot):
+    """
+    Find an available table that can accommodate the number of guests.
+    We're looking for the smallest table that fits the party to maximize seating efficiency.
+    """
+    # Get all tables with enough seats for the party
+    suitable_tables = Table.query.filter(Table.seats >= number_of_guests).order_by(Table.seats).all()
+    
+    for table in suitable_tables:
+        # Check if this table is already reserved for this date and time slot
+        existing_reservation = Reservation.query.filter_by(
+            date=date, 
+            time_slot=time_slot, 
+            table_id=table.id
+        ).first()
+        
+        if not existing_reservation:
+            return table.id
+    
     return None
