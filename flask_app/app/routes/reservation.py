@@ -19,16 +19,20 @@ valid_time_slots = [
 def available_time_slots():
     # Get the requested date (can come from frontend)
     requested_date_str = request.args.get('date')
-    
+
     if requested_date_str:
-        requested_date = datetime.strptime(requested_date_str, '%Y-%m-%d')
+        requested_date = datetime.strptime(requested_date_str, '%Y-%m-%d').date()  # Convert to date object
     else:
-        # If no date is provided, use the current date (or set a default)
-        requested_date = datetime.today()
+        # If no date is provided, use today's date (or set a default)
+        requested_date = datetime.today().date()  # Use only the date part (no time)
 
     # Restrict to Wednesday to Sunday (weekday() returns 0 for Monday, 1 for Tuesday, etc.)
     if requested_date.weekday() not in [2, 3, 4, 5, 6]:  # 2: Wed, 3: Thu, 4: Fri, 5: Sat, 6: Sun
         return jsonify({"error": "Reservations are only available from Wednesday to Sunday."}), 400
+
+    # Check if the requested date is in the future (not in the past)
+    if requested_date < datetime.today().date():  # Both are now date objects
+        return jsonify({"error": "Reservations must be made for a future date."}), 400
 
     # Check for existing reservations in the requested date and time range
     reserved_slots = [res.time_slot for res in Reservation.query.filter_by(date=requested_date).all()]
