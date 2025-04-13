@@ -1,7 +1,11 @@
-# scripts/seed_database.py
-from datetime import date, datetime
+import sys
+import os
+from datetime import date
 from app import create_app, db
 from app.models import Customer, Reservation
+
+# Add the root directory to sys.path so Python can find the 'app' module
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 def seed_customers():
