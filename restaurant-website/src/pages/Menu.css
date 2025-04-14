@@ -143,3 +143,58 @@ header {
 			grid-template-columns: var(--menu-grid-columns-desktop);
 	}
 }
+
+/* Add this to your existing Menu.css file to style the prices */
+
+/* Item header with name and price on the same line */
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+}
+
+.item-name {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.item-price {
+  font-weight: 500;
+  color: #333;
+  font-size: 1.1rem;
+  margin-left: 1rem;
+}
+
+/* Adjust existing styles if needed */
+.menu-item {
+  margin-bottom: 1.5rem;
+}
+
+.item-description {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.cheese-varieties {
+  margin-top: 0.5rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* For mobile views */
+@media (max-width: 600px) {
+  .item-header {
+    flex-direction: column;
+  }
+  
+  .item-price {
+    margin-left: 0;
+    margin-top: 0.2rem;
+  }
+}
