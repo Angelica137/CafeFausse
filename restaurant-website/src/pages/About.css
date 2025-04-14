@@ -175,3 +175,83 @@ cite {
     font-size: 18px;
   }
 }
+
+.awards-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.award {
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.award-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  background-color: white;
+}
+
+/* For the James Beard award - retain the circular look */
+.award:nth-child(1) .award-icon {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* For the Michelin award - already a nice circle */
+.award:nth-child(2) .award-icon {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* For the World Culinary award */
+.award:nth-child(3) .award-icon {
+  background-color: transparent;
+  padding: 0;
+}
+
+.award-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.award h3 {
+  margin: 0.5rem 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.award p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .awards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .award {
+    width: 100%;
+    max-width: 100%;
+  }
+}

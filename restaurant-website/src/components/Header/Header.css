@@ -7,6 +7,10 @@
   border-bottom: 1px solid var(--color-border);
 	margin-bottom: 0;
 	padding-bottom: 0;
+  /* Add sticky positioning */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure header appears above other content */
 }
 
 .header-content {

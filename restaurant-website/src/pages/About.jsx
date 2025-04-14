@@ -1,6 +1,10 @@
 import React from 'react';
 import './About.css';
 import chefImage from '../assets/images/dan-rooney-qm6yxe7SjWg-unsplash.jpg';
+// Import your award images
+import jamesBeardAwardImage from '../assets/images/james-beard-award.jpg'; // Image 1
+import michelinAwardImage from '../assets/images/michelin-2024.png'; // Image 2
+import worldCulinaryAwardImage from '../assets/images/world-culinary-award.png'; // Image 3
 
 const About = () => {
   return (
@@ -48,19 +52,25 @@ const About = () => {
         <h2>Awards & Recognition</h2>
         <div className="awards-container">
           <div className="award">
-            <div className="award-icon michelin"></div>
+            <div className="award-icon">
+              <img src={jamesBeardAwardImage} alt="James Beard Foundation Award" className="award-image" />
+            </div>
+            <h3>James Beard Foundation</h3>
+            <p>Award for Excellence in Culinary Arts</p>
+          </div>
+          <div className="award">
+            <div className="award-icon">
+              <img src={michelinAwardImage} alt="Michelin 2024" className="award-image" />
+            </div>
             <h3>Two Michelin Stars</h3>
             <p>Recognized for exceptional cuisine and worth a detour</p>
           </div>
           <div className="award">
-            <div className="award-icon fine-dining"></div>
-            <h3>London's Finest Dining</h3>
-            <p>Voted among London's top 5 luxury restaurants</p>
-          </div>
-          <div className="award">
-            <div className="award-icon culinary"></div>
-            <h3>Culinary Excellence</h3>
-            <p>Chef Louis Fausse named Chef of the Year</p>
+            <div className="award-icon">
+              <img src={worldCulinaryAwardImage} alt="World Culinary Award" className="award-image" />
+            </div>
+            <h3>World Culinary Excellence</h3>
+            <p>Chef Louis Fausse recognized for global contribution to fine dining</p>
           </div>
         </div>
       </section>

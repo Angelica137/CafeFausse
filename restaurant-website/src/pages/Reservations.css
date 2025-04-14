@@ -17,22 +17,33 @@
 /* Reservations Header */
 .reservations-header {
   text-align: center;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 .reservations-header h1 {
-  font-size: var(--font-size-xxl);
-  margin-bottom: var(--spacing-md);
-  color: var(--color-secondary);
-	font-style: italic;
-	margin: 10px 0 0;
-	color: var(--menu-color-subheading);
-	font-weight: var(--font-weight-normal);
+  font-size: 42px;
+  font-weight: var(--font-weight-normal);
+  color: var(--menu-color-heading);
+  margin: 0;
+  letter-spacing: 2px;
+  display: inline-block;
+  position: relative;
 }
 
 .reservations-header p {
   font-size: var(--font-size-md);
   color: var(--color-secondary);
+	margin-top: var(--spacing-md);
+	padding-top: var(--spacing-xl);
+}
+
+.reservations-header h1::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  background-color: var(--menu-color-border);
+  margin: 15px auto 0;
 }
 
 /* Reservation Form */
@@ -197,4 +208,46 @@ select.error {
   .submit-button {
     padding: 0.75rem 1.5rem;
   }
+}
+
+/* Add this to your Reservations.css file */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.react-datepicker__input-container input:focus {
+  border-color: var(--color-secondary);
+  outline: none;
+}
+
+.react-datepicker__input-container input.error {
+  border-color: var(--color-secondary);
+}
+
+/* Customize the datepicker popup to match your design */
+.react-datepicker {
+  font-family: var(--font-secondary);
+  border-color: var(--color-border);
+}
+
+.react-datepicker__header {
+  background-color: var(--color-background-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.react-datepicker__day--selected {
+  background-color: var(--color-primary);
+}
+
+.react-datepicker__day--disabled {
+  color: #ccc;
 }

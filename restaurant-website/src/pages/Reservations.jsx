@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import './Reservations.css';
 
 // Define your API base URL (update this to match your backend URL)
@@ -326,44 +328,43 @@ const Reservations = () => {
           </div>
           
           <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="date">Date (Wed-Sun only)</label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                min={getTodayDate()}
-                max={getMaxDate()}
-                className={formErrors.date ? 'error' : ''}
-                disabled={loading}
-              />
-              {formErrors.date && <div className="error-message">{formErrors.date}</div>}
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="time">Time</label>
-              <select
-                id="time"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                className={formErrors.time ? 'error' : ''}
-                disabled={loading || !formData.date}
-              >
-                <option value="">Select a time</option>
-                {availableTimes.map((time) => (
-                  <option key={time} value={time}>
-                    {formatTimeForDisplay(time)}
-                  </option>
-                ))}
-              </select>
-              {formErrors.time && <div className="error-message">{formErrors.time}</div>}
-              {formData.date && availableTimes.length === 0 && !loading && (
-                <div className="info-message">No available time slots for this date</div>
-              )}
-            </div>
+					<div className="form-group">
+  <label htmlFor="date">Date (Wed-Sun only)</label>
+  <DatePicker
+    id="date"
+    selected={formData.date ? new Date(formData.date) : null}
+    onChange={(date) => {
+      if (date) {
+        const formattedDate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        handleChange({
+          target: {
+            name: 'date',
+            value: formattedDate
+          }
+        });
+      } else {
+        handleChange({
+          target: {
+            name: 'date',
+            value: ''
+          }
+        });
+      }
+    }}
+    minDate={new Date(getTodayDate())}
+    maxDate={new Date(getMaxDate())}
+    placeholderText="dd/mm/yy"
+    dateFormat="dd/MM/yy" // This is the format you wanted
+    className={formErrors.date ? 'error' : ''}
+    disabled={loading}
+    filterDate={(date) => {
+      // Only allow Wednesday (3) through Sunday (0)
+      const day = date.getDay();
+      return day === 0 || day >= 3;
+    }}
+  />
+  {formErrors.date && <div className="error-message">{formErrors.date}</div>}
+</div>
             
             <div className="form-group">
               <label htmlFor="guests">Number of Guests</label>
