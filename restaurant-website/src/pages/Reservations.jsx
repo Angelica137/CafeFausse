@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Reservations.css';
 
+// Define your API base URL (update this to match your backend URL)
+const API_BASE_URL = 'http://127.0.0.1:5000';
+
 const Reservations = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -15,9 +18,21 @@ const Reservations = () => {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [formErrors, setFormErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // Generate available times from 3:30 PM to 11:30 PM in 30-minute intervals
+  // Fetch available time slots when date changes
   useEffect(() => {
+    if (formData.date) {
+      fetchAvailableTimeSlots(formData.date);
+    } else {
+      // If no date is selected, default to showing all potential time slots
+      generateDefaultTimeSlots();
+    }
+  }, [formData.date]);
+
+  // Generate default time slots (for when no date is selected)
+  const generateDefaultTimeSlots = () => {
     const times = [];
     let hour = 15; // 3 PM in 24-hour format
     let minute = 30;
@@ -40,7 +55,32 @@ const Reservations = () => {
     }
     
     setAvailableTimes(times);
-  }, []);
+  };
+
+  // Fetch available time slots from the backend
+  const fetchAvailableTimeSlots = async (date) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_BASE_URL}/reservation/available_time_slots?date=${date}`);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        setErrorMessage(errorData.error || 'Failed to fetch available time slots');
+        generateDefaultTimeSlots(); // Fallback to default slots
+        return;
+      }
+      
+      const availableSlots = await response.json();
+      setAvailableTimes(availableSlots);
+      setErrorMessage('');
+    } catch (error) {
+      console.error('Error fetching available time slots:', error);
+      setErrorMessage('Failed to connect to the server. Please try again later.');
+      generateDefaultTimeSlots(); // Fallback to default slots
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Format the time for display (convert from 24-hour format to 12-hour format)
   const formatTimeForDisplay = (time) => {
@@ -72,7 +112,9 @@ const Reservations = () => {
     if (name === 'date') {
       setFormData({
         ...formData,
-        [name]: value
+        [name]: value,
+        // Clear the time selection when date changes
+        time: ''
       });
       
       // Check if the selected day is valid
@@ -124,6 +166,50 @@ const Reservations = () => {
     return errors;
   };
 
+  // Submit reservation to the backend
+  const submitReservation = async () => {
+    setLoading(true);
+    setErrorMessage('');
+    
+    try {
+      const requestData = {
+        customer: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone
+        },
+        reservation: {
+          date: formData.date,
+          time_slot: formData.time,
+          number_of_guests: parseInt(formData.guests, 10),
+          special_requests: formData.specialRequests
+        }
+      };
+      
+      const response = await fetch(`${API_BASE_URL}/reservation/reserve`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create reservation');
+      }
+      
+      console.log('Reservation created:', data);
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Error creating reservation:', error);
+      setErrorMessage(error.message || 'Failed to create reservation. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -132,9 +218,7 @@ const Reservations = () => {
     setFormErrors(errors);
     
     if (Object.keys(errors).length === 0) {
-      // In a real application, this is where you would submit the data to your backend
-      console.log('Form submitted:', formData);
-      setSubmitted(true);
+      submitReservation();
     }
   };
 
@@ -163,6 +247,12 @@ const Reservations = () => {
         <h1>Make a Reservation</h1>
         <p>We look forward to hosting you at Café Fausse</p>
       </div>
+      
+      {errorMessage && (
+        <div className="error-alert">
+          {errorMessage}
+        </div>
+      )}
       
       {submitted ? (
         <div className="confirmation-message">
@@ -199,6 +289,7 @@ const Reservations = () => {
               value={formData.name}
               onChange={handleChange}
               className={formErrors.name ? 'error' : ''}
+              disabled={loading}
             />
             {formErrors.name && <div className="error-message">{formErrors.name}</div>}
           </div>
@@ -213,6 +304,7 @@ const Reservations = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className={formErrors.email ? 'error' : ''}
+                disabled={loading}
               />
               {formErrors.email && <div className="error-message">{formErrors.email}</div>}
             </div>
@@ -226,6 +318,7 @@ const Reservations = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 className={formErrors.phone ? 'error' : ''}
+                disabled={loading}
               />
               {formErrors.phone && <div className="error-message">{formErrors.phone}</div>}
             </div>
@@ -243,18 +336,20 @@ const Reservations = () => {
                 min={getTodayDate()}
                 max={getMaxDate()}
                 className={formErrors.date ? 'error' : ''}
+                disabled={loading}
               />
               {formErrors.date && <div className="error-message">{formErrors.date}</div>}
             </div>
             
             <div className="form-group">
-              <label htmlFor="time">Time (3:30 PM - 11:30 PM)</label>
+              <label htmlFor="time">Time</label>
               <select
                 id="time"
                 name="time"
                 value={formData.time}
                 onChange={handleChange}
                 className={formErrors.time ? 'error' : ''}
+                disabled={loading || !formData.date}
               >
                 <option value="">Select a time</option>
                 {availableTimes.map((time) => (
@@ -264,6 +359,9 @@ const Reservations = () => {
                 ))}
               </select>
               {formErrors.time && <div className="error-message">{formErrors.time}</div>}
+              {formData.date && availableTimes.length === 0 && !loading && (
+                <div className="info-message">No available time slots for this date</div>
+              )}
             </div>
             
             <div className="form-group">
@@ -273,6 +371,7 @@ const Reservations = () => {
                 name="guests"
                 value={formData.guests}
                 onChange={handleChange}
+                disabled={loading}
               >
                 {[...Array(9)].map((_, i) => (
                   <option key={i + 2} value={i + 2}>
@@ -291,6 +390,7 @@ const Reservations = () => {
               value={formData.specialRequests}
               onChange={handleChange}
               rows="4"
+              disabled={loading}
             ></textarea>
           </div>
           
@@ -304,7 +404,13 @@ const Reservations = () => {
             </ul>
           </div>
           
-          <button type="submit" className="submit-button">Reserve Table</button>
+          <button 
+            type="submit" 
+            className="submit-button" 
+            disabled={loading}
+          >
+            {loading ? 'Processing...' : 'Reserve Table'}
+          </button>
         </form>
       )}
     </div>

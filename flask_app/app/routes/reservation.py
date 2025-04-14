@@ -1,6 +1,7 @@
 # app/routes/reservation.py
 
 from flask import Blueprint, request, jsonify
+from flask_cors import cross_origin
 from app.models import Customer, Reservation, Table
 from app import db
 from datetime import datetime
@@ -16,6 +17,7 @@ valid_time_slots = [
 
 
 @bp.route('/available_time_slots', methods=['GET'])
+@cross_origin()  # Add this decorator
 def available_time_slots():
     # Get the requested date (can come from frontend)
     requested_date_str = request.args.get('date')
@@ -44,6 +46,7 @@ def available_time_slots():
 
 
 @bp.route('/reserve', methods=['POST'])
+@cross_origin()  # Add this decorator
 def create_reservation():
     data = request.get_json()
 
