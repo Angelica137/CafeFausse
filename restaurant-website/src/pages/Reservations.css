@@ -33,8 +33,8 @@
 .reservations-header p {
   font-size: var(--font-size-md);
   color: var(--color-secondary);
-	margin-top: var(--spacing-md);
-	padding-top: var(--spacing-xl);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-xl);
 }
 
 .reservations-header h1::after {
@@ -74,7 +74,6 @@ label {
 }
 
 input,
-select,
 textarea {
   width: 100%;
   padding: 0.75rem;
@@ -85,21 +84,125 @@ textarea {
 }
 
 input:focus,
-select:focus,
 textarea:focus {
   border-color: var(--color-secondary);
   outline: none;
 }
 
-input.error,
-select.error {
+input.error {
   border-color: var(--color-secondary);
 }
 
 .error-message {
-  color: var(--color-secondary);
+  color: #d9534f;
   font-size: 0.85rem;
-  margin-top: 0.5rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Style for required field asterisks */
+.required {
+  color: #d9534f;
+  margin-left: 3px;
+}
+
+/* Style for field note in reservation notes */
+.reservation-notes .required {
+  font-weight: bold;
+}
+
+/* Select Elements Styling */
+.reservation-form select,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  background-color: var(--color-background);
+  color: inherit;
+  height: auto;
+  box-sizing: border-box;
+  -webkit-appearance: menulist; /* Ensures native dropdown appearance on Safari */
+  appearance: menulist; /* Standard appearance for dropdowns */
+}
+
+/* Match the focus state with inputs */
+.reservation-form select:focus,
+.form-group select:focus {
+  border-color: var(--color-secondary);
+  outline: none;
+}
+
+/* Match the error state with inputs */
+.reservation-form select.error,
+.form-group select.error {
+  border-color: var(--color-secondary);
+}
+
+/* Specific styling for time dropdown */
+#time,
+select#time {
+  padding: 0.75rem;
+  border-radius: 0;
+}
+
+/* Specific styling for guests dropdown */
+#guests,
+select#guests {
+  padding: 0.75rem;
+  border-radius: 0;
+}
+
+/* Ensure disabled state matches other inputs */
+.reservation-form select:disabled,
+.form-group select:disabled {
+  background-color: var(--color-background-alt);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* DatePicker Styling */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.react-datepicker__input-container input:focus {
+  border-color: var(--color-secondary);
+  outline: none;
+}
+
+.react-datepicker__input-container input.error {
+  border-color: var(--color-secondary);
+}
+
+/* Customize the datepicker popup to match your design */
+.react-datepicker {
+  font-family: var(--font-secondary);
+  border-color: var(--color-border);
+}
+
+.react-datepicker__header {
+  background-color: var(--color-background-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.react-datepicker__day--selected {
+  background-color: var(--color-primary);
+}
+
+.react-datepicker__day--disabled {
+  color: #ccc;
 }
 
 /* Reservation Notes */
@@ -194,6 +297,22 @@ select.error {
   background-color: var(--color-secondary);
 }
 
+/* Error Alert */
+.error-alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #f5c6cb;
+  border-radius: 0;
+}
+
+/* Override any browser-specific styling */
+select {
+  -webkit-appearance: menulist !important;
+  appearance: menulist !important;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .form-row {
@@ -210,44 +329,70 @@ select.error {
   }
 }
 
-/* Add this to your Reservations.css file */
-.react-datepicker-wrapper {
-  width: 100%;
-}
-
-.react-datepicker__input-container input {
+/* Select Elements Styling */
+.reservation-form select,
+.form-group select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: 0;
   font-size: 1rem;
   transition: border-color 0.3s;
+  background-color: var(--color-background);
+  color: inherit;
+  height: auto;
+  box-sizing: border-box;
+  -webkit-appearance: none; /* Change from menulist to none */
+  appearance: none; /* Change from menulist to none */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.6%205.4-7.9%205.4-12.9%200-5-1.9-9.2-5.5-12.7z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.65rem auto;
+  padding-right: 2rem;
 }
 
-.react-datepicker__input-container input:focus {
+/* Match the focus state with inputs */
+.reservation-form select:focus,
+.form-group select:focus {
   border-color: var(--color-secondary);
   outline: none;
 }
 
-.react-datepicker__input-container input.error {
+/* Match the error state with inputs */
+.reservation-form select.error,
+.form-group select.error {
   border-color: var(--color-secondary);
 }
 
-/* Customize the datepicker popup to match your design */
-.react-datepicker {
-  font-family: var(--font-secondary);
-  border-color: var(--color-border);
+/* Specific styling for time dropdown */
+#time,
+select#time {
+  padding: 0.75rem;
+  border-radius: 0;
 }
 
-.react-datepicker__header {
+/* Specific styling for guests dropdown */
+#guests,
+select#guests {
+  padding: 0.75rem;
+  border-radius: 0;
+}
+
+/* Ensure disabled state matches other inputs */
+.reservation-form select:disabled,
+.form-group select:disabled {
   background-color: var(--color-background-alt);
-  border-bottom: 1px solid var(--color-border);
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
-.react-datepicker__day--selected {
-  background-color: var(--color-primary);
-}
-
-.react-datepicker__day--disabled {
-  color: #ccc;
+/* Override any browser-specific styling - MODIFY THIS SECTION */
+select {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.6%205.4-7.9%205.4-12.9%200-5-1.9-9.2-5.5-12.7z%22%2F%3E%3C%2Fsvg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.7rem top 50% !important;
+  background-size: 0.65rem auto !important;
+  padding-right: 2rem !important;
 }

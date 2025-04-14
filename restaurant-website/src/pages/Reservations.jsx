@@ -35,28 +35,16 @@ const Reservations = () => {
 
   // Generate default time slots (for when no date is selected)
   const generateDefaultTimeSlots = () => {
-    const times = [];
-    let hour = 15; // 3 PM in 24-hour format
-    let minute = 30;
-
-    while (hour < 24) {
-      // Break the loop when we reach 11:30 PM
-      if (hour === 23 && minute === 30) {
-        times.push(`${hour}:${minute === 0 ? '00' : minute}`);
-        break;
-      }
-
-      times.push(`${hour}:${minute === 0 ? '00' : minute}`);
-      
-      // Increment by 30 minutes
-      minute += 30;
-      if (minute === 60) {
-        hour += 1;
-        minute = 0;
-      }
+    // Default time slots - these will be replaced with server data once a date is selected
+    const defaultTimes = [];
+    
+    // Monday-Saturday: 5:00 PM - 9:30 PM (last seating)
+    for (let hour = 17; hour <= 21; hour++) {
+      defaultTimes.push(`${hour}:00`);
+      defaultTimes.push(`${hour}:30`);
     }
     
-    setAvailableTimes(times);
+    setAvailableTimes(defaultTimes);
   };
 
   // Fetch available time slots from the backend
@@ -97,20 +85,20 @@ const Reservations = () => {
     return `${hour12}:${minute} ${period}`;
   };
 
-  // Check if a date is valid (Wednesday to Sunday)
+  // All days are now valid for reservations
   const isValidDate = (dateString) => {
+    // Only check if the date is in the future
     const date = new Date(dateString);
-    const day = date.getDay();
-    
-    // 0 is Sunday, 3 is Wednesday, 4 is Thursday, 5 is Friday, 6 is Saturday
-    return day === 0 || day >= 3;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date >= today;
   };
 
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     
-    // Special handling for date to validate day of week
+    // Special handling for date to clear time when date changes
     if (name === 'date') {
       setFormData({
         ...formData,
@@ -119,11 +107,11 @@ const Reservations = () => {
         time: ''
       });
       
-      // Check if the selected day is valid
+      // Check if the selected day is valid (just future date check)
       if (value && !isValidDate(value)) {
         setFormErrors({
           ...formErrors,
-          date: 'Reservations are only available from Wednesday to Sunday'
+          date: 'Please select a future date'
         });
       } else {
         // Clear error if date is valid
@@ -151,16 +139,15 @@ const Reservations = () => {
       errors.email = 'Email is invalid';
     }
     
-    if (!formData.phone.trim()) {
-      errors.phone = 'Phone is required';
-    } else if (!/^\+?[0-9\s\-()]+$/.test(formData.phone)) {
-      errors.phone = 'Phone number is invalid';
+    // Phone is now optional, so only validate format if provided
+    if (formData.phone.trim() && !/^\+?[0-9\s\-()]+$/.test(formData.phone)) {
+      errors.phone = 'Phone number format is invalid';
     }
     
     if (!formData.date) {
       errors.date = 'Date is required';
     } else if (!isValidDate(formData.date)) {
-      errors.date = 'Reservations are only available from Wednesday to Sunday';
+      errors.date = 'Please select a future date';
     }
     
     if (!formData.time) errors.time = 'Time is required';
@@ -244,179 +231,196 @@ const Reservations = () => {
   };
 
   return (
-		<div className="reservations-page-background">
-    <div className="reservations-container">
-      <div className="reservations-header">
-        <h1>Make a Reservation</h1>
-        <p>We look forward to hosting you at Café Fausse</p>
+    <div className="reservations-page-background">
+      <div className="reservations-container">
+        <div className="reservations-header">
+          <h1>Make a Reservation</h1>
+          <p>We look forward to hosting you at Café Fausse</p>
+        </div>
+        
+        {errorMessage && (
+          <div className="error-alert">
+            {errorMessage}
+          </div>
+        )}
+        
+        {submitted ? (
+          <div className="confirmation-message">
+            <h2>Thank You!</h2>
+            <p>Your reservation request has been submitted. We will confirm your reservation via email or phone soon.</p>
+            <div className="reservation-details">
+              <h3>Reservation Details:</h3>
+              <p><strong>Name:</strong> {formData.name}</p>
+              <p><strong>Date:</strong> {new Date(formData.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              <p><strong>Time:</strong> {formatTimeForDisplay(formData.time)}</p>
+              <p><strong>Party Size:</strong> {formData.guests} {formData.guests === 1 ? 'guest' : 'guests'}</p>
+            </div>
+            <button className="new-reservation-button" onClick={() => {
+              setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                date: '',
+                time: '',
+                guests: 2,
+                specialRequests: ''
+              });
+              setSubmitted(false);
+            }}>Make Another Reservation</button>
+          </div>
+        ) : (
+          <form className="reservation-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Full Name <span className="required">*</span></label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className={formErrors.name ? 'error' : ''}
+                disabled={loading}
+              />
+              {formErrors.name && <div className="error-message">{formErrors.name}</div>}
+            </div>
+            
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="email">Email <span className="required">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={formErrors.email ? 'error' : ''}
+                  disabled={loading}
+                />
+                {formErrors.email && <div className="error-message">{formErrors.email}</div>}
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number (Optional)</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={formErrors.phone ? 'error' : ''}
+                  disabled={loading}
+                />
+                {formErrors.phone && <div className="error-message">{formErrors.phone}</div>}
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="date">Date <span className="required">*</span></label>
+                <DatePicker
+                  id="date"
+                  selected={formData.date ? new Date(formData.date) : null}
+                  onChange={(date) => {
+                    if (date) {
+                      const formattedDate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+                      handleChange({
+                        target: {
+                          name: 'date',
+                          value: formattedDate
+                        }
+                      });
+                    } else {
+                      handleChange({
+                        target: {
+                          name: 'date',
+                          value: ''
+                        }
+                      });
+                    }
+                  }}
+                  minDate={new Date(getTodayDate())}
+                  maxDate={new Date(getMaxDate())}
+                  placeholderText="dd/mm/yy"
+                  dateFormat="dd/MM/yy" // This is the format you wanted
+                  className={formErrors.date ? 'error' : ''}
+                  disabled={loading}
+                  // All days are now available, so no filterDate needed
+                />
+                {formErrors.date && <div className="error-message">{formErrors.date}</div>}
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="time">Time <span className="required">*</span></label>
+                <select
+                  id="time"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                  className={formErrors.time ? 'error' : ''}
+                  disabled={loading || !formData.date}
+                >
+                  <option value="">Select a time</option>
+                  {availableTimes.map((time) => (
+                    <option key={time} value={time}>
+                      {formatTimeForDisplay(time)}
+                    </option>
+                  ))}
+                </select>
+                {formErrors.time && <div className="error-message">{formErrors.time}</div>}
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="guests">Number of Guests <span className="required">*</span></label>
+                <select
+                  id="guests"
+                  name="guests"
+                  value={formData.guests}
+                  onChange={handleChange}
+                  disabled={loading}
+                >
+                  {[...Array(9)].map((_, i) => (
+                    <option key={i + 2} value={i + 2}>
+                      {i + 2} {i + 2 === 1 ? 'guest' : 'guests'}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="specialRequests">Special Requests (Optional)</label>
+              <textarea
+                id="specialRequests"
+                name="specialRequests"
+                value={formData.specialRequests}
+                onChange={handleChange}
+                rows="4"
+                disabled={loading}
+              ></textarea>
+            </div>
+            
+            <div className="reservation-notes">
+              <p>Please note:</p>
+              <ul>
+                <li>Fields marked with <span className="required">*</span> are required</li>
+                <li>Reservations can be made up to 3 months in advance</li>
+                <li>For parties larger than 10, please call us directly</li>
+                <li>We hold reservations for 15 minutes past the reserved time</li>
+                <li>A credit card is not required to reserve a table, but a 24-hour cancellation policy applies</li>
+              </ul>
+            </div>
+            
+            <button 
+              type="submit" 
+              className="submit-button" 
+              disabled={loading}
+            >
+              {loading ? 'Processing...' : 'Reserve Table'}
+            </button>
+          </form>
+        )}
       </div>
-      
-      {errorMessage && (
-        <div className="error-alert">
-          {errorMessage}
-        </div>
-      )}
-      
-      {submitted ? (
-        <div className="confirmation-message">
-          <h2>Thank You!</h2>
-          <p>Your reservation request has been submitted. We will confirm your reservation via email or phone soon.</p>
-          <div className="reservation-details">
-            <h3>Reservation Details:</h3>
-            <p><strong>Name:</strong> {formData.name}</p>
-            <p><strong>Date:</strong> {new Date(formData.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            <p><strong>Time:</strong> {formatTimeForDisplay(formData.time)}</p>
-            <p><strong>Party Size:</strong> {formData.guests} {formData.guests === 1 ? 'guest' : 'guests'}</p>
-          </div>
-          <button className="new-reservation-button" onClick={() => {
-            setFormData({
-              name: '',
-              email: '',
-              phone: '',
-              date: '',
-              time: '',
-              guests: 2,
-              specialRequests: ''
-            });
-            setSubmitted(false);
-          }}>Make Another Reservation</button>
-        </div>
-      ) : (
-        <form className="reservation-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Full Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={formErrors.name ? 'error' : ''}
-              disabled={loading}
-            />
-            {formErrors.name && <div className="error-message">{formErrors.name}</div>}
-          </div>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={formErrors.email ? 'error' : ''}
-                disabled={loading}
-              />
-              {formErrors.email && <div className="error-message">{formErrors.email}</div>}
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className={formErrors.phone ? 'error' : ''}
-                disabled={loading}
-              />
-              {formErrors.phone && <div className="error-message">{formErrors.phone}</div>}
-            </div>
-          </div>
-          
-          <div className="form-row">
-					<div className="form-group">
-  <label htmlFor="date">Date (Wed-Sun only)</label>
-  <DatePicker
-    id="date"
-    selected={formData.date ? new Date(formData.date) : null}
-    onChange={(date) => {
-      if (date) {
-        const formattedDate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-        handleChange({
-          target: {
-            name: 'date',
-            value: formattedDate
-          }
-        });
-      } else {
-        handleChange({
-          target: {
-            name: 'date',
-            value: ''
-          }
-        });
-      }
-    }}
-    minDate={new Date(getTodayDate())}
-    maxDate={new Date(getMaxDate())}
-    placeholderText="dd/mm/yy"
-    dateFormat="dd/MM/yy" // This is the format you wanted
-    className={formErrors.date ? 'error' : ''}
-    disabled={loading}
-    filterDate={(date) => {
-      // Only allow Wednesday (3) through Sunday (0)
-      const day = date.getDay();
-      return day === 0 || day >= 3;
-    }}
-  />
-  {formErrors.date && <div className="error-message">{formErrors.date}</div>}
-</div>
-            
-            <div className="form-group">
-              <label htmlFor="guests">Number of Guests</label>
-              <select
-                id="guests"
-                name="guests"
-                value={formData.guests}
-                onChange={handleChange}
-                disabled={loading}
-              >
-                {[...Array(9)].map((_, i) => (
-                  <option key={i + 2} value={i + 2}>
-                    {i + 2} {i + 2 === 1 ? 'guest' : 'guests'}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="specialRequests">Special Requests (Optional)</label>
-            <textarea
-              id="specialRequests"
-              name="specialRequests"
-              value={formData.specialRequests}
-              onChange={handleChange}
-              rows="4"
-              disabled={loading}
-            ></textarea>
-          </div>
-          
-          <div className="reservation-notes">
-            <p>Please note:</p>
-            <ul>
-              <li>Reservations can be made up to 3 months in advance</li>
-              <li>For parties larger than 10, please call us directly</li>
-              <li>We hold reservations for 15 minutes past the reserved time</li>
-              <li>A credit card is not required to reserve a table, but a 24-hour cancellation policy applies</li>
-            </ul>
-          </div>
-          
-          <button 
-            type="submit" 
-            className="submit-button" 
-            disabled={loading}
-          >
-            {loading ? 'Processing...' : 'Reserve Table'}
-          </button>
-        </form>
-      )}
     </div>
-		</div>
   );
 };
 

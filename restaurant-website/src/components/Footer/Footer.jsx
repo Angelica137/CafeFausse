@@ -8,10 +8,9 @@ const Footer = () => {
       <div className="footer-content">
         <div className="address-container">
           <div className="address-block">
-            <p className="address-line">47 Mayfair Gardens</p>
-            <p className="address-line">Belgravia</p>
-            <p className="address-line">London</p>
-            <p className="address-line">SW1X 9BZ</p>
+            <p className="address-line">1234 Culinary Ave</p>
+            <p className="address-line">Suite 100</p>
+            <p className="address-line">Washington, DC 20002</p>
           </div>
           
           <div className="contact-info">
@@ -19,7 +18,7 @@ const Footer = () => {
               <span className="phone-icon">
                 <Phone size={18} strokeWidth={2} />
               </span>
-              <span className="phone-number">+44 (0)20 7235 0000</span>
+              <span className="phone-number">(202) 555-4567</span>
             </div>
             
             <div className="email-container">
@@ -32,11 +31,11 @@ const Footer = () => {
           
           <div className="hours">
             <div className="hours-section">
-              <p className="hours-title">Lunch: 12 - 3:30pm (Wed - Sun)</p>
+              <p className="hours-title">Monday–Saturday: 5:00 PM – 11:00 PM</p>
             </div>
             
             <div className="hours-section">
-              <p className="hours-title">Dinner: 6:30 - 11:30pm (Wed - Sun)</p>
+              <p className="hours-title">Sunday: 5:00 PM – 9:00 PM</p>
             </div>
           </div>
         </div>
