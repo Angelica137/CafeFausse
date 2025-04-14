@@ -1,0 +1,118 @@
+/* components/Footer/Footer.css */
+@import '../../styles/variables.css';
+
+.footer {
+  width: 100%;
+  background-color: var(--color-primary);
+  padding: var(--spacing-lg) 0;
+  margin-top: auto; /* This helps push the footer to the bottom */
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* Keep your existing Address styles */
+.address-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.address-block {
+  margin-bottom: var(--spacing-md);
+}
+
+.address-line {
+  margin: var(--spacing-xs) 0;
+  font-family: var(--font-primary);
+  color: var(--color-background-alt);
+  font-size: var(--font-size-lg);
+}
+
+.contact-info {
+  margin-bottom: var(--spacing-md);
+}
+
+.phone-container,
+.email-container {
+  margin: var(--spacing-sm) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-icon,
+.email-icon {
+  margin-right: var(--spacing-sm);
+  color: var(--color-background-alt);
+  display: flex;
+  align-items: center;
+}
+
+.phone-number,
+.email {
+  font-family: var(--font-primary);
+  color: var(--color-background-alt);
+  font-size: var(--font-size-lg);
+}
+
+.hours {
+  text-align: center;
+}
+
+.hours-section {
+  margin: var(--spacing-sm) 0;
+}
+
+.hours-title {
+  font-family: var(--font-primary);
+  color: var(--color-background-alt);
+  font-size: var(--font-size-lg);
+  margin: var(--spacing-xs) 0;
+}
+
+/* New footer-specific styles */
+.footer-bottom {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+	padding-bottom: var(--spacing-lg);
+  
+}
+
+.copyright {
+  font-family: var(--font-secondary);
+  color: var(--color-background-alt);
+  font-size: var(--font-size-sm);
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .address-container {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .address-block, 
+  .contact-info, 
+  .hours {
+    flex: 1;
+    margin: 0 var(--spacing-md);
+  }
+
+  .phone-container,
+  .email-container {
+    justify-content: flex-start;
+  }
+
+  .hours {
+    text-align: left;
+  }
+}

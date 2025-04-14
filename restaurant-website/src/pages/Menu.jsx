@@ -135,7 +135,7 @@ const Menu = () => {
   return (
     <div className="container">
       <header>
-        <h1 className="restaurant-name">Café Fausse</h1>
+
         <p className="menu-title">Lunch & Dinner</p>
       </header>
       
@@ -187,9 +187,9 @@ const Menu = () => {
         </section>
       </main>
       
-      <footer>
-        <p>Prices available upon request. Please inform your server of any allergies or dietary requirements.</p>
-      </footer>
+      <div className="disclaimer">
+        <p>Please inform your server of any allergies or dietary requirements.</p>
+      </div>
     </div>
   );
 };

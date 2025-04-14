@@ -242,6 +242,7 @@ const Reservations = () => {
   };
 
   return (
+		<div className="reservations-page-background">
     <div className="reservations-container">
       <div className="reservations-header">
         <h1>Make a Reservation</h1>
@@ -414,6 +415,7 @@ const Reservations = () => {
         </form>
       )}
     </div>
+		</div>
   );
 };
 

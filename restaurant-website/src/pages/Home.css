@@ -5,9 +5,9 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--color-background); /* Force white background */
 }
 
 .home-content {
   flex: 1;
-  padding: var(--spacing-lg);
 }
