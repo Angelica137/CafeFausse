@@ -123,3 +123,16 @@
   background-color: var(--color-primary);
   color: var(--color-background);
 }
+
+.newsletter-message {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.newsletter-message.success {
+  color: green;
+}
+
+.newsletter-message.error {
+  color: red;
+}
