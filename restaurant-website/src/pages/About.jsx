@@ -6,12 +6,11 @@ import jamesBeardAwardImage from '../assets/images/james-beard-award.jpg';
 import bestFineDiningImage from '../assets/images/best-fine-dining.png'; 
 import worldCulinaryAwardImage from '../assets/images/world-culinary-award.png'; 
 
-
 const About = () => {
   return (
     <div className="about-container">
       <div className="about-header">
-        <h1>About Us</h1>
+        <h1>About Café Fausse</h1>
       </div>
       
       <section className="about-content">
@@ -21,7 +20,7 @@ const About = () => {
         
         <div className="about-text">
           <p>
-					Founded in 2010 by Chef Antonio Rossi and restaurateur Maria Lopez, Café Fausse blends traditional Italian flavors with modern culinary innovation. Our mission is to provide an unforgettable dining experience that reflects both quality and creativity.
+            Nestled in the prestigious heart of Belgravia, Café Fausse stands as an epitome of culinary excellence and timeless luxury. Founded in 2010 by Chef Antonio Rossi and restaurateur Maria Lopez, Café Fausse blends traditional Italian flavors with modern culinary innovation. Our mission is to provide an unforgettable dining experience that reflects both quality and creativity.
           </p>
           
           <h2>Our Founders</h2>
@@ -64,36 +63,49 @@ const About = () => {
       
       <section className="awards-section">
         <h2>Awards & Recognition</h2>
-          <div className="awards-container">
-            <div className="award">
-              <div className="award-icon">
-                <img src={jamesBeardAwardImage} alt="James Beard Foundation Award" className="award-image" />
-              </div>
-              <h3>Restaurant of the Year 2023</h3>
-              <p>Award for Excellence in Culinary Arts</p>
+        <div className="awards-container">
+          <div className="award">
+            <div className="award-icon">
+              <img src={jamesBeardAwardImage} alt="James Beard Foundation Award" className="award-image" />
             </div>
-    
-            <div className="award">
-              <div className="award-icon">
-                <img 
-                  src={bestFineDiningImage} 
-                  alt="Best Fine Dining Experience" 
-                  className="award-image" 
-                />
-              </div>
-              <h3>Best Fine Dining Experience 2023</h3>
-              <p>Recognized for exceptional cuisine and worth a detour</p>
+            <h3>Restaurant of the Year 2023</h3>
+            <p>Award for Excellence in Culinary Arts</p>
+          </div>
+          <div className="award">
+            <div className="award-icon">
+              <img src={bestFineDiningImage} alt="Best Fine Dining Experience" className="award-image" />
             </div>
-    
-            <div className="award">
-              <div className="award-icon">
-                <img src={worldCulinaryAwardImage} alt="World Culinary Award" className="award-image" />
-              </div>
-              <h3>Culinary Excellence 2022</h3>
-              <p>Chef Antonio Rossi recognized for global contribution to fine dining</p>
+            <h3>Best Fine Dining Experience 2023</h3>
+            <p>Recognized for exceptional cuisine and worth a detour</p>
+          </div>
+          <div className="award">
+            <div className="award-icon">
+              <img src={worldCulinaryAwardImage} alt="World Culinary Award" className="award-image" />
+            </div>
+            <h3>Culinary Excellence 2022</h3>
+            <p>Chef Antonio Rossi recognized for global contribution to fine dining</p>
+          </div>
+        </div>
+      </section>
+      
+      <section className="reviews-section">
+        <h2>What People Are Saying</h2>
+        <div className="reviews-container">
+          <div className="review">
+            <div className="review-content">
+              <p className="review-text">"Exceptional ambiance and unforgettable flavors."</p>
+              <p className="review-author">– Gourmet Review</p>
             </div>
           </div>
-        </section>
+          
+          <div className="review">
+            <div className="review-content">
+              <p className="review-text">"A must-visit restaurant for food enthusiasts."</p>
+              <p className="review-author">– The Daily Bite</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
