@@ -6,6 +6,7 @@ from datetime import date
 from app import create_app, db
 from app.models import Customer, Reservation, Table
 
+
 def seed_reservations():
     # Retrieve customers from the database
     customers = Customer.query.all()
