@@ -1,49 +1,62 @@
 import React from 'react';
 import './About.css';
 import chefImage from '../assets/images/dan-rooney-qm6yxe7SjWg-unsplash.jpg';
-// Import your award images
-import jamesBeardAwardImage from '../assets/images/james-beard-award.jpg'; // Image 1
-import michelinAwardImage from '../assets/images/michelin-2024.png'; // Image 2
-import worldCulinaryAwardImage from '../assets/images/world-culinary-award.png'; // Image 3
+
+import jamesBeardAwardImage from '../assets/images/james-beard-award.jpg'; 
+import michelinAwardImage from '../assets/images/michelin-2024.png'; 
+import worldCulinaryAwardImage from '../assets/images/world-culinary-award.png'; 
 
 const About = () => {
   return (
     <div className="about-container">
       <div className="about-header">
-        <h1>About Café Fausse</h1>
+        <h1>About Us</h1>
       </div>
       
       <section className="about-content">
         <div className="about-image-container">
-          <img src={chefImage} alt="Chef Louis Fausse" className="about-image" />
+          <img src={chefImage} alt="Chef Antonio Rossi" className="about-image" />
         </div>
         
         <div className="about-text">
           <p>
-            Nestled in the prestigious heart of Belgravia, Café Fausse stands as an epitome of culinary excellence and timeless luxury. A two-Michelin-star steakhouse, it is the creation of <strong>Chef Louis Fausse</strong>, a master of his craft whose name has become synonymous with perfection in the world of fine dining.
+					Founded in 2010 by Chef Antonio Rossi and restaurateur Maria Lopez, Café Fausse blends traditional Italian flavors with modern culinary innovation. Our mission is to provide an unforgettable dining experience that reflects both quality and creativity.
           </p>
           
+          <h2>Our Founders</h2>
+          
+          <h3>Chef Antonio Rossi</h3>
           <p>
-            At Café Fausse, every detail is thoughtfully curated to offer a sophisticated dining experience that goes beyond mere meals — it is a celebration of the senses. Chef Louis, with his world-renowned expertise and unwavering passion for the finest cuts of meat, brings to life a menu where exceptional steak is not just a dish, but a work of art. Dry-aged to perfection, each steak is a testament to craftsmanship, served with carefully selected sides and sauces that elevate the very concept of dining.
+            With over 25 years of culinary experience, Chef Antonio Rossi brings his Tuscan heritage and passion for authentic Italian cuisine to Café Fausse. Born and raised in Florence, Antonio began his journey in his grandmother's kitchen before training at the prestigious Culinary Institute of Milan. His career has taken him through renowned kitchens across Europe, including three years at a three-Michelin-star restaurant in Paris. Antonio's philosophy centers on honoring traditional techniques while embracing innovation, resulting in dishes that are both familiar and surprising.
+          </p>
+          
+          <h3>Maria Lopez</h3>
+          <p>
+            As the business visionary behind Café Fausse, Maria Lopez combines her keen entrepreneurial instincts with a lifelong passion for hospitality. With a background in luxury hotel management and an MBA from London Business School, Maria has created the perfect environment for Antonio's culinary artistry to flourish. Her attention to detail extends from the restaurant's elegant décor to its impeccable service standards. Maria's commitment to creating memorable dining experiences has earned Café Fausse its reputation as a destination for discerning food lovers.
           </p>
           
           <div className="quote-container">
             <blockquote>
               "Cooking is not just about ingredients, it's about bringing together the exceptional and the ordinary to create something memorable."
             </blockquote>
-            <cite>— Chef Louis Fausse</cite>
+            <cite>— Chef Antonio Rossi</cite>
           </div>
           
+          <h2>Our Commitment</h2>
+          
+          <h3>Unforgettable Dining Experience</h3>
           <p>
-            Steeped in the rich tradition of French gastronomy, the restaurant's ambiance is one of understated grandeur, where the elegance of classic design harmonizes with modern touches. The soft glow of chandeliers, the finest linens, and impeccable service create an atmosphere where guests are treated with the utmost care and respect, making every visit an unforgettable occasion.
+            At Café Fausse, every detail is thoughtfully curated to offer a sophisticated dining experience that goes beyond mere meals — it is a celebration of the senses. The soft glow of chandeliers, the finest linens, and impeccable service create an atmosphere where guests are treated with the utmost care and respect, making every visit an unforgettable occasion.
           </p>
           
+          <h3>Culinary Excellence</h3>
           <p>
-            Café Fausse is not just a restaurant — it is a destination. A place where discerning diners can indulge in a refined culinary journey, one that celebrates the finest ingredients, exceptional technique, and the art of great service. It is here that excellence is not a goal but a standard, and where the pursuit of perfection is evident in every plate, every glass of wine, and every smile of the team who serves you.
+            With two Michelin stars and a legacy built on passion, precision, and dedication, Café Fausse continues to set the standard for luxury dining in London. Chef Antonio, with his world-renowned expertise and unwavering passion for fine cuisine, brings to life a menu where each dish is not just food, but a work of art. Every plate is a testament to craftsmanship, served with carefully selected accompaniments that elevate the very concept of dining.
           </p>
           
+          <h3>Locally Sourced Ingredients</h3>
           <p>
-            With two Michelin stars and a legacy built on passion, precision, and dedication, Café Fausse continues to set the standard for luxury dining in London. Here, we invite you to experience the finest in haute cuisine, where every meal is a celebration of the artistry of cooking, and every moment is one to be cherished.
+            Our commitment to quality begins with our ingredients. We work closely with local farmers, fishermen, and artisanal producers to source the finest seasonal produce available. By maintaining strong relationships with our suppliers, we ensure that only the freshest, most ethically sourced ingredients make their way into our kitchen. This farm-to-table approach not only results in superior flavors but also supports the local economy and reduces our environmental impact.
           </p>
         </div>
       </section>
@@ -70,7 +83,7 @@ const About = () => {
               <img src={worldCulinaryAwardImage} alt="World Culinary Award" className="award-image" />
             </div>
             <h3>World Culinary Excellence</h3>
-            <p>Chef Louis Fausse recognized for global contribution to fine dining</p>
+            <p>Chef Antonio Rossi recognized for global contribution to fine dining</p>
           </div>
         </div>
       </section>
