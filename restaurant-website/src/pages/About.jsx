@@ -3,8 +3,9 @@ import './About.css';
 import chefImage from '../assets/images/dan-rooney-qm6yxe7SjWg-unsplash.jpg';
 
 import jamesBeardAwardImage from '../assets/images/james-beard-award.jpg'; 
-import michelinAwardImage from '../assets/images/michelin-2024.png'; 
+import bestFineDiningImage from '../assets/images/best-fine-dining.png'; 
 import worldCulinaryAwardImage from '../assets/images/world-culinary-award.png'; 
+
 
 const About = () => {
   return (
@@ -62,31 +63,37 @@ const About = () => {
       </section>
       
       <section className="awards-section">
-        <h2>Awards & Recognition</h2>
-        <div className="awards-container">
-          <div className="award">
-            <div className="award-icon">
-              <img src={jamesBeardAwardImage} alt="James Beard Foundation Award" className="award-image" />
-            </div>
-            <h3>James Beard Foundation</h3>
-            <p>Award for Excellence in Culinary Arts</p>
-          </div>
-          <div className="award">
-            <div className="award-icon">
-              <img src={michelinAwardImage} alt="Michelin 2024" className="award-image" />
-            </div>
-            <h3>Two Michelin Stars</h3>
-            <p>Recognized for exceptional cuisine and worth a detour</p>
-          </div>
-          <div className="award">
-            <div className="award-icon">
-              <img src={worldCulinaryAwardImage} alt="World Culinary Award" className="award-image" />
-            </div>
-            <h3>World Culinary Excellence</h3>
-            <p>Chef Antonio Rossi recognized for global contribution to fine dining</p>
-          </div>
-        </div>
-      </section>
+  <h2>Awards & Recognition</h2>
+  <div className="awards-container">
+    <div className="award">
+      <div className="award-icon">
+        <img src={jamesBeardAwardImage} alt="James Beard Foundation Award" className="award-image" />
+      </div>
+      <h3>Restaurant of the Year 2023</h3>
+      <p>Award for Excellence in Culinary Arts</p>
+    </div>
+    
+    <div className="award">
+      <div className="award-icon">
+        <img 
+          src={bestFineDiningImage} 
+          alt="Best Fine Dining Experience" 
+          className="award-image" 
+        />
+      </div>
+      <h3>Best Fine Dining Experience 2023</h3>
+      <p>Recognized for exceptional cuisine and worth a detour</p>
+    </div>
+    
+    <div className="award">
+      <div className="award-icon">
+        <img src={worldCulinaryAwardImage} alt="World Culinary Award" className="award-image" />
+      </div>
+      <h3>Culinary Excellence 2022</h3>
+      <p>Chef Antonio Rossi recognized for global contribution to fine dining</p>
+    </div>
+  </div>
+</section>
     </div>
   );
 };
