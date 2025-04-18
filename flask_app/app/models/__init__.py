@@ -4,4 +4,4 @@ from app.models.reservation import Reservation
 from app.models.table import Table
 
 # Export models for easier imports elsewhere
-__all__ = ['Customer', 'Reservation', 'Table']
+__all__ = ["Customer", "Reservation", "Table"]

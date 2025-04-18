@@ -10,7 +10,7 @@ class Customer(db.Model):
     newsletter_signup = db.Column(db.Boolean, default=False)
 
     # Relationship with reservations
-    reservations = db.relationship('Reservation', backref='customer', lazy=True)
+    reservations = db.relationship("Reservation", backref="customer", lazy=True)
 
     def __repr__(self):
-        return f'<Customer {self.name}>'
+        return f"<Customer {self.name}>"
